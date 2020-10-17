@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% extends "acubook/base.html" %}
+{% block body_block %}
+{% load static %}
+    <!-- First Book section Motivational -->
+    <div class="container padding ">
+      <div class="row padding my-6">
+        <div class="col-12 text-center ">
+          <h2 class="cardheader">Motivational</h2>   <!--Font Awesome has to be used in the headers-->
+        </div>
+      </div>
+      {% if motivatebook %}
+        <div class="row padding my-6">
+          {% for motivate in motivatebook %}
+        <div class="col-md-6 col-lg-3 col-xs-6 col-sm-6 post">
+          <div class="card">
+  					<a href="{% url 'acubook:description' %}?title={{ motivate.Title }}&category=Motivational"><img src="{{ motivate.Book_image.url }}" alt="Images"class="card-img-top"style="height:250px;"></a>
+  					<div class="card-body">
+  						<h4 class="card-title">{{ motivate.Title }}</h4>
+              <p class="card-text">#{{ motivate.Price }}</p>
+  						<form  action="{% url 'Carts:cart' %}?title={{ motivate.Title }}" method="POST">
+                {% csrf_token %}
+                <p>
+                <input type="hidden" name="quantity" value="1"></p>
+                <button class="btn btn-dark carts">Add to Cart</button>
+              </form>
+
+  					</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      </div>
+
+{% endblock %}

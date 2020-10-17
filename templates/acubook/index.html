@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+{% extends "acubook/base.html" %}
+{% block body_block %}
+{% load static %}
+  <!-- Carousel -->
+  <div id="slides" class="carousel slide" data-ride="carousel">
+		<ul class="carousel-indicators">
+			<li data-target="#slides" data-slide-to="0" class="active"></li>
+			<li data-target="#slides" data-slide-to="1"></li>
+			<li data-target="#slides" data-slide-to="2"></li>
+		</ul>
+		<div class="carousel-inner">
+			<div class="carousel-item active" data-interval="10000">
+				<img class="myimg" src="{% static 'images/libraries-in-nigeria.jpg' %}">
+				<div class="carousel-caption">
+          <h1 class="display-4">ACU Bookstore</h1>
+					<h3>...Seek to Read</h3>
+					<a href="#bookbegin" role="button" class="btn btn-outline-light btn-lg firstbtn">BOOKS</a>
+					<!--<button type="button" class="btn btn-primary btn-lg secbtn">Get Started</button>-->
+				</div>
+			</div>
+			<div class="carousel-item" data-interval="2000">
+				<img src="{% static 'images/interior-of-a-large-bookstore.jpg' %}" class="myimg">
+			</div>
+			<div class="carousel-item" data-interval="3000">
+				<img src="{% static 'images/photo-bookshop.jpg' %}" class="myimg" >
+			</div>
+
+		</div>
+	</div>
+
+  <!-- Jumbotron-->
+
+	<div class="container-fluid">
+		<div class="row jumbotron">
+			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10">
+				<p class="lead jumbotext text-justify">We provide online books for Ajayi Crowther Students.</p>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
+				<a href="https://www.acu.edu.ng" type="button" class="btn btn-outline-secondary btn-lg">ACU Website</a>
+			</div>
+		</div>
+	</div>
+
+
+
+  <!-- First Book section Arts and Literature -->
+  <div class="container padding ">
+    <div class="row padding ">
+      <div id="bookbegin" class="col-12 text-center ">
+        <h2  class="cardheader">Arts and Literature</h2>   <!--Font Awesome has to be used in the headers-->
+      </div>
+      {% if artsbook %}
+      {% for arts in artsbook %}
+      {% if forloop.counter0 < 4 %}
+      
+        <div class="col-md-6 col-lg-3 col-xs-6 col-sm-6 post">
+        <div class="card">
+          <a href="{% url 'acubook:description' %}?title={{ arts.Title }}&category=Arts and Literature"><img src="{{ arts.Book_image.url }}" alt="Images"class="card-img-top" style="height: 250px;"></a>
+          <div class="card-body">
+            <h4 class="card-title">{{ arts.Title }}</h4>
+            <p class="card-text">#{{ arts.Price }}</p>
+            <form  action="{% url 'Carts:cart' %}?title={{ arts.Title }}" method="POST">
+              {% csrf_token %}
+              <p>
+              <input type="hidden" name="quantity" value="1"></p>
+              <button class="btn btn-dark carts">Add to Cart</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+
+      <div class="col-12 text-center mt-2">
+          <a href="{% url 'acubook:arts' %}" class="btn btn-outline-dark btn-lg bookmore" type="button">View More...</a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Second Book section Science -->
+  <div class="container padding ">
+    <div class="row padding">
+      <div class="col-12 text-center">
+        <h2 class="cardheader">Science</h2>
+      </div>
+      {% if sciencebook %}
+      {% for science in sciencebook %}
+      {% if forloop.counter0 < 4 %}
+
+      <div class="col-md-6 col-lg-3 col-xs-6 col-sm-6 post">
+        <div class="card">
+					<a href="{% url 'acubook:description' %}?title={{ science.Title }}&category=Science"><img src="{{ science.Book_image.url }}" alt="Images"class="card-img-top"style="height:250px;"></a>
+					<div class="card-body">
+						<h4 class="card-title">{{ science.Title }}</h4>
+            <p class="card-text">#{{ science.Price }}</p>
+						<form  action="{% url 'Carts:cart' %}?title={{ science.Title }}" method="POST">
+              {% csrf_token %}
+              <p>
+              <input type="hidden" name="quantity" value="1"></p>
+              <button class="btn btn-dark carts">Add to Cart</button>
+            </form>
+
+					</div>
+        </div>
+      </div>
+
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+
+      <div class="col-12 text-center mt-2">
+          <a href="{% url 'acubook:science' %}" class="btn btn-outline-dark btn-lg bookmore" type="button">View More...</a>
+      </div>
+      </div>
+  </div>
+
+
+  <!-- First Book section Business -->
+  <div class="container padding ">
+    <div class="row padding">
+      <div class="col-12 text-center">
+        <h2 class="cardheader">Business</h2>
+      </div>
+
+      {% if businessbook %}
+      {% for business in businessbook %}
+      {% if forloop.counter0 < 4 %}
+
+      <div class="col-md-6 col-lg-3 col-xs-6 col-sm-6 post">
+        <div class="card">
+  				<a href="{% url 'acubook:description' %}?title={{ business.Title }}&category=Business"><img src="{{ business.Book_image.url }}" alt="Images"class="card-img-top"style="height:250px;"></a>
+  				<div class="card-body">
+  					<h4 class="card-title">{{ business.Title }}</h4>
+            <p class="card-text">#{{ business.Price }}</p>
+  					<form  action="{% url 'Carts:cart' %}?title={{ business.Title }}" method="POST">
+              {% csrf_token %}
+              <p>
+              <input type="hidden" name="quantity" value="1"></p>
+              <button class="btn btn-dark carts">Add to Cart</button>
+            </form>
+
+  				</div>
+        </div>
+      </div>
+
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+
+      <div class="col-12 text-center mt-2">
+          <a href="{% url 'acubook:business' %}" class="btn btn-outline-dark btn-lg bookmore" type="button">View More...</a>
+      </div>
+      </div>
+  </div>
+
+
+      <!-- First Book section Christian Books -->
+  <div class="container padding ">
+    <div class="row padding">
+      <div class="col-12 text-center">
+        <h2 class="cardheader">Christian Books</h2>
+      </div>
+
+      {% if christianbook %}
+      {% for christian in christianbook %}
+      {% if forloop.counter0 < 4 %}
+
+      <div class="col-md-6 col-lg-3 col-xs-6 col-sm-6 post">
+        <div class="card">
+  				<a href="{% url 'acubook:description' %}?title={{ christian.Title }}&category=Christian Books"><img src="{{ christian.Book_image.url }}" alt="Images"class="card-img-top"style="height:250px;"></a>
+  				<div class="card-body">
+  					<h4 class="card-title">{{ christian.Title }}</h4>
+            <p class="card-text">#{{ christian.Price }}</p>
+  					<form  action="{% url 'Carts:cart' %}?title={{ christian.Title }}" method="POST">
+              {% csrf_token %}
+              <p>
+              <input type="hidden" name="quantity" value="1"></p>
+              <button class="btn btn-dark carts">Add to Cart</button>
+            </form>
+
+  				</div>
+        </div>
+      </div>
+
+
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+
+      <div class="col-12 text-center mt-2">
+          <a href="{% url 'acubook:christian' %}" class="btn btn-outline-dark btn-lg bookmore" type="button">View More...</a>
+      </div>
+      </div>
+  </div>
+
+      <!-- First Book section Nigerian and African Authors -->
+  <div class="container padding ">
+    <div class="row padding">
+      <div class="col-12 text-center">
+        <h2 class="cardheader">Nigerian and African Authors</h2>
+      </div>
+
+      {% if nigerianbook %}
+      {% for niger in nigerianbook %}
+      {% if forloop.counter0 < 4 %}
+
+
+      <div class="col-md-6 col-lg-3 col-xs-6 col-sm-6 post ">
+        <div class="card">
+          <a href="{% url 'acubook:description' %}?title={{ niger.Title }}&category=Nigerian Books"><img src="{{ niger.Book_image.url }}" alt="Images"class="card-img-top"style="height:250px;"></a>
+          <div class="card-body">
+            <h4 class="card-title">{{ niger.Title }}</h4>
+            <p class="card-text">#{{ niger.Price }}</p>
+            <form  action="{% url 'Carts:cart' %}?title={{ niger.Title }}" method="POST">
+              {% csrf_token %}
+              <p>
+              <input type="hidden" name="quantity" value="1"></p>
+              <button class="btn btn-dark carts">Add to Cart</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+
+      <div class="col-12 text-center mt-2">
+          <a href="{% url 'acubook:nigerian' %}" class="btn btn-outline-dark btn-lg bookmore" type="button">View More...</a>
+      </div>
+      </div>
+  </div>
+
+    <!-- First Book section Motivational Books -->
+  <div class="container padding ">
+    <div class="row padding">
+      <div class="col-12 text-center">
+        <h2 class="cardheader">Motivational</h2>
+      </div>
+
+      {% if motivatebook %}
+      {% for motivate in motivatebook %}
+      {% if forloop.counter0 < 4 %}
+
+      <div class="col-md-6 col-lg-3 col-xs-6 col-sm-6 post ">
+        <div class="card">
+          <a href="{% url 'acubook:description' %}?title={{ motivate.Title }}&category=Motivational"><img src="{{ motivate.Book_image.url }}" alt="Images"class="card-img-top"style="height:250px;"></a>
+          <div class="card-body">
+            <h4 class="card-title">{{ motivate.Title }}</h4>
+            <p class="card-text">#{{ motivate.Price }}</p>
+            <form  action="{% url 'Carts:cart' %}?title={{ motivate.Title }}" method="POST">
+              {% csrf_token %}
+              <p>
+              <input type="hidden" name="quantity" value="1"></p>
+              <button class="btn btn-dark carts">Add to Cart</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+
+      <div class="col-12 text-center mt-2">
+          <a href="{% url 'acubook:motivational' %}" class="btn btn-outline-dark btn-lg bookmore" type="button">View More...</a>
+      </div>
+    </div>
+  </div>
+
+      <!-- First Book section Teen Books -->
+    <div class="container padding ">
+      <div class="row padding">
+        <div class="col-12 text-center">
+          <h2 class="cardheader">Teen Books</h2>
+        </div>
+
+      {% if teenbook %}
+      {% for teen in teenbook %}
+      {% if forloop.counter0 < 4 %}
+
+        <div class="col-md-6 col-lg-3 col-xs-6 col-sm-6 post">
+          <div class="card">
+            <a href="{% url 'acubook:description' %}?title={{ teen.Title }}&category=Teen Books"><img src="{{ teen.Book_image.url }}" alt="Images"class="card-img-top"style="height:250px;"></a>
+            <div class="card-body">
+              <h4 class="card-title">{{ teen.Title }}</h4>
+              <p class="card-text">#{{ teen.Price }}</p>
+              <form  action="{% url 'Carts:cart' %}?title={{ teen.Title }}" method="POST">
+                {% csrf_token %}
+                <p>
+                <input type="hidden" name="quantity" value="1"></p>
+                <button class="btn btn-dark carts">Add to Cart</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+
+        <div class="col-12 text-center mt-2">
+            <a href="{% url 'acubook:teenbooks' %}" class="btn btn-outline-dark btn-lg bookmore" type="button">View More...</a>
+        </div>
+      </div>
+  </div>
+
+{% endblock %}

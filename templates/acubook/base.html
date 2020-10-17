@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ACU BOOKSTORE</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css'%}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+  </head>
+  <body>
+    <header>
+      <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light headers">
+          <ul class="navbar-nav ml-auto mr-auto mt-2 mt-lg-0 ">
+            <li  class="nav-item"><a href="#" class="nav-link ajayi">Ajayi Crowther University</a></li>
+          </ul>
+          <ul class="navbar-nav ">
+            <li class="nav-item"><a href="{% url 'acubook:register'%}" class="acureg nav-link ">Register</a></li>
+
+            {% if user.is_authenticated %}
+            <li class="nav-item"><a href="{% url 'acubook:logout' %}" class="acureg nav-link ">Logout</a></li>
+
+            {% else %}
+             <li class="nav-item"><a href="{% url 'acubook:user_login' %}" class="acureg nav-link ">Login</a></li>
+
+            {% endif %}
+
+          </ul>
+        </nav>
+      </div>
+
+  </header>
+
+  <!-- Navigation panel -->
+    <div class="container-fluid p-0 text-center acunav sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light acuhead">
+        <a class="navbar-brand" href="{% url 'acubook:index' %}"><img src="{% static 'images/acu.jpeg' %}" id="acuimg"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav ml-auto mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active ">
+              <a class="nav-link middle" href="{% url 'acubook:index' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown ">
+              <a class="nav-link dropdown-toggle middle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categories
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'acubook:arts' %}">Arts and Literature</a>
+                <br>
+                <a class="dropdown-item" href="{% url 'acubook:science' %}">Science</a>
+                <br>
+                <a class="dropdown-item" href="{% url 'acubook:christian' %}">Christian Books</a>
+                <br>
+                <a class="dropdown-item" href="{% url 'acubook:nigerian' %}">Nigerian and African Authors</a>
+                <br>
+                <a class="dropdown-item" href="{% url 'acubook:motivational' %}">Motivational</a>
+                <br>
+                <a class="dropdown-item" href="{% url 'acubook:business' %}">Business</a>
+                <br>
+                <a class="dropdown-item" href="{% url 'acubook:teenbooks' %}">Teen Books</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link middle" href="#footer">Contacts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link middle" href="{% url 'acubook:about_us' %}">About Us</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link right" href="{% url 'Carts:display-cart' %}">Cart&nbsp<span class="badge badge-info">{{ total_cartitem }}</span></a>
+            </li>
+            <form class="form-inline" action="{% url 'Search:search' %}" post="GET">
+              <input class="form-control mr-sm-2" name="title" type="search" placeholder="Search Book Title" aria-label="Search">
+              <button class="btn btn-outline-dark my-2 my-sm-0 navbutton" type="submit">Search</button>
+            </form>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    {% block body_block %}
+    {% endblock %}
+
+
+  <!-- Footer -->
+    <div class="container-fluid padding">
+        <div class="row text-center footer" id="footer">
+            <div class="col-md-6">
+                <h2>Address</h2>
+                <hr class="light">
+                <p>555-555-5555</p>
+                <p>email@myemail.com</p>
+                <p>100 Street Name</p>
+                <p>Oyo Town, Oyo State</p>
+            </div>
+
+            <div class="col-md-6">
+                <hr class="light">
+                <p>Our Hours</p>
+                <hr class="light">
+                <p>Monday - Friday : 9am - 4pm</p>
+                <p>Saturday: Closed</p>
+                <p>Sunday: Closed</p>
+            </div>
+
+            <div class="col-12">
+                <hr class="light-100">
+                <h5>&copy: acu.edu.ng</h5>
+            </div>
+        </div>
+    </div>
+
+  <script >
+    $(document).ready(function(){
+
+      $('.col-lg-3').hover(
+
+      // trigger when on hover
+        function(){
+          $(this).animate({
+            marginTop: "-=1%",
+          },200);
+
+        },
+
+      // trigger when hover out
+        function(){
+          $(this).animate({
+            marginTop: "0%"
+          },200);
+        }
+
+      );
+
+    });
+  </script>
+</body>
+</html>

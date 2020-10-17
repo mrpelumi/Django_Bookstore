@@ -1,0 +1,280 @@
+{% extends "acubook/base.html" %}
+{% block body_block %}
+{% load static %}
+
+	<div class="container">
+		<div class="row padding my-6">
+			<div class="col-lg-6 col-md-6 col-xs-6 mt-5"  style="max-width: 400px;">
+				{% if arts %}
+				{% for art in arts %}
+				<div class="card mx-auto bookcard" style="max-width: 400px;border: 0px;">
+					<img src="{{ art.Book_image.url }}" class="card-img-top">
+				</div>
+				{% endfor %}
+
+				{% elif sciences %}
+				{% for science in sciences %}
+				<div class="card mx-auto bookcard" style="max-width: 400px;border: 0px;">
+					<img src="{{ science.Book_image.url }}" class="card-img-top">
+				</div>
+				{% endfor %}
+
+				{% elif business %}
+				{% for bus in business %}
+				<div class="card mx-auto bookcard" style="max-width: 400px;border: 0px;">
+					<img src="{{ bus.Book_image.url }}" class="card-img-top">
+				</div>
+				{% endfor %}
+
+				{% elif christianbks %}
+				{% for christianb in christianbks %}
+				<div class="card mx-auto bookcard" style="max-width: 400px;border: 0px;">
+					<img src="{{ christianb.Book_image.url }}" class="card-img-top">
+				</div>
+				{% endfor %}
+
+				{% elif motivational %}
+				{% for motivate in motivational %}
+				<div class="card mx-auto bookcard" style="max-width: 400px;border: 0px;">
+					<img src="{{ motivate.Book_image.url }}" class="card-img-top">
+				</div>
+				{% endfor %}
+
+				{% elif nigerian %}
+				{% for niger in nigerian %}
+				<div class="card mx-auto bookcard" style="max-width: 400px;border: 0px;">
+					<img src="{{ niger.Book_image.url }}" class="card-img-top">
+				</div>
+				{% endfor %}
+
+				{% elif teenbks %}
+				{% for teen in teenbks %}
+				<div class="card mx-auto bookcard" style="max-width: 400px;border: 0px;">
+					<img src="{{ teen.Book_image.url }}" class="card-img-top">
+				</div>
+				{% endfor %}
+
+				{% endif %}
+			</div>
+			<div class="col-lg-6 col-md-6 col-xs-6 mt-5" style="max-width: 400px">
+				<div class="card mx-auto bookcard" style="max-width: 400px">
+				<article class="card-body">
+				{% if arts %}
+				{% for art in arts %}
+				<p class="card-text booktext">Title: {{ art.Title }} </p>
+				<br>
+				<p class="card-text booktext">Authors: {{ art.Authors }}</p>
+				<br>
+				<p class="card-text booktext">Publish Year: {{ art.Publish_year }}</p>
+				<br>
+				<p class="card-text booktext">Price: #{{ art.Price }}</p>
+				<br>
+				<p class="card-text booktext">Category: Arts and Literature </p>
+				<br>
+				<p style="color: purple">{{ art.Quantity }} in stock</p>
+				
+				<form  action="{% url 'Carts:cart' %}?title={{ art.Title }}" method="POST">
+					{% csrf_token %}
+					<p>
+					<label for="quantity" style="color: green;font-weight: bold;">Qty:</label>
+					<input id="qtys" type="number" name="quantity" class="form-control" value="1" required="required" min="1"></p>
+					<button class="btn btn-dark carts" >Add to Cart</button>
+				</form>
+				{% endfor %}
+				
+				{% elif sciences %}
+				{% for science in sciences %}
+				<p class="card-text booktext">Title: {{ science.Title }} </p>
+				<br>
+				<p class="card-text booktext">Authors: {{ science.Authors }}</p>
+				<br>
+				<p class="card-text booktext">Publish Year: {{ science.Publish_year }}</p>
+				<br>
+				<p class="card-text booktext">Price: #{{ science.Price }}</p>
+				<br>
+				<p class="card-text booktext">Category: Science </p>
+				<br>
+				<p style="color: purple">{{ science.Quantity }} in stock</p>
+				<form  action="{% url 'Carts:cart' %}?title={{ science.Title }}" method="POST">
+					{% csrf_token %}
+					<p>
+					<label for="quantity" style="color: green;font-weight: bold;">Qty:</label>
+					<input id="qtys" type="number" name="quantity" class="form-control" value="1" required="required" min="1"></p>
+					<button class="btn btn-dark carts" >Add to Cart</button>
+				</form>
+				{% endfor %}
+				
+				{% elif business %}
+				{% for bus in business %}
+				<p class="card-text booktext">Title: {{ bus.Title }} </p>
+				<br>
+				<p class="card-text booktext">Authors: {{ bus.Authors }}</p>
+				<br>
+				<p class="card-text booktext">Publish Year: {{ bus.Publish_year }}</p>
+				<br>
+				<p class="card-text booktext">Price: #{{ bus.Price }}</p>
+				<br>
+				<p class="card-text booktext">Category: Business </p>
+				<br>
+				<p style="color: purple">{{ bus.Quantity }} in stock</p>
+				<form  action="{% url 'Carts:cart' %}?title={{ bus.Title }}" method="POST">
+					{% csrf_token %}
+					<p>
+					<label for="quantity" style="color: green;font-weight: bold;">Qty:</label>
+					<input id="qtys" type="number" name="quantity" class="form-control" value="1" required="required" min="1"></p>
+					<button class="btn btn-dark carts" >Add to Cart</button>
+				</form>
+				{% endfor %}
+
+				{% elif christianbks %}
+				{% for christianb in christianbks %}
+				<p class="card-text booktext">Title: {{ christianb.Title }} </p>
+				<br>
+				<p class="card-text booktext">Authors: {{ christianb.Authors }}</p>
+				<br>
+				<p class="card-text booktext">Publish Year: {{ christianb.Publish_year }}</p>
+				<br>
+				<p class="card-text booktext">Price: #{{ christianb.Price }}</p>
+				<br>
+				<p class="card-text booktext">Category: Christian Books </p>
+				<br>
+				<p style="color: purple">{{ christianb.Quantity }} in stock</p>
+				<form  action="{% url 'Carts:cart' %}?title={{ christianb.Title }}" method="POST">
+					{% csrf_token %}
+					<p>
+					<label for="quantity" style="color: green;font-weight: bold;">Qty:</label>
+					<input id="qtys" type="number" name="quantity" class="form-control" value="1" required="required" min="1"></p>
+					<button class="btn btn-dark carts" >Add to Cart</button>
+				</form>
+				{% endfor %}
+
+
+				{% elif motivational %}
+				{% for motivate in motivational %}
+				<p class="card-text booktext">Title: {{ motivate.Title }} </p>
+				<br>
+				<p class="card-text booktext">Authors: {{ motivate.Authors }}</p>
+				<br>
+				<p class="card-text booktext">Publish Year: {{ motivate.Publish_year }}</p>
+				<br>
+				<p class="card-text booktext">Price: #{{ motivate.Price }}</p>
+				<br>
+				<p class="card-text booktext">Category: Motivational </p>
+				<br>
+				<p style="color: purple">{{ motivate.Quantity }} in stock</p>
+				<form  action="{% url 'Carts:cart' %}?title={{ motivate.Title }}" method="POST">
+					{% csrf_token %}
+					<p>
+					<label for="quantity" style="color: green;font-weight: bold;">Qty:</label>
+					<input id="qtys" type="number" name="quantity" class="form-control" value="1" required="required" min="1"></p>
+					<button class="btn btn-dark carts" >Add to Cart</button>
+				</form>
+				{% endfor %}
+
+				{% elif nigerian %}
+				{% for niger in nigerian %}
+				<p class="card-text booktext">Title: {{ niger.Title }} </p>
+				<br>
+				<p class="card-text booktext">Authors: {{ niger.Authors }}</p>
+				<br>
+				<p class="card-text booktext">Publish Year: {{ niger.Publish_year }}</p>
+				<br>
+				<p class="card-text booktext">Price: #{{ niger.Price }}</p>
+				<br>
+				<p class="card-text booktext">Category: Nigerian and African Authors </p>
+				<br>
+				<p style="color: purple">{{ niger.Quantity }} in stock</p>
+				<form  action="{% url 'Carts:cart' %}?title={{ niger.Title }}" method="POST">
+					{% csrf_token %}
+					<p>
+					<label for="quantity" style="color: green;font-weight: bold;">Qty:</label>
+					<input id="qtys" type="number" name="quantity" class="form-control" value="1" required="required" min="1"></p>
+					<button class="btn btn-dark carts" >Add to Cart</button>
+				</form>
+				{% endfor %}
+
+				{% elif teenbks %}
+				{% for teen in teenbks %}
+				<p class="card-text booktext">Title: {{ teen.Title }} </p>
+				<br>
+				<p class="card-text booktext">Authors: {{ teen.Authors }}</p>
+				<br>
+				<p class="card-text booktext">Publish Year: {{ teen.Publish_year }}</p>
+				<br>
+				<p class="card-text booktext">Price: #{{ teen.Price }}</p>
+				<br>
+				<p class="card-text booktext">Category: Teen Books </p>
+				<br>
+				<p style="color: purple">{{ teen.Quantity }} in stock</p>
+				<form  action="{% url 'Carts:cart' %}?title={{ teen.Title }}" method="POST">
+					{% csrf_token %}
+					<p>
+					<label for="quantity" style="color: green;font-weight: bold;">Qty:</label>
+					<input id="qtys" type="number" name="quantity" class="form-control" value="1" required="required" min="1"></p>
+					<button class="btn btn-dark carts" >Add to Cart</button>
+				</form>
+				{% endfor %}
+
+
+				{% endif %}
+				</article>
+			</div>
+				
+			</div>
+		</div>
+
+		<div class="row padding">
+			<div class="col-lg-6 col-md-6 col-xs-6 mt-4" style="max-width: 400px">
+				<div class="jumbotron">
+					{% if arts %}
+					{% for art in arts %}
+					<h4>Description</h4>
+					<p>{{ art.Description }}</p>
+					{% endfor %}
+					
+					{% elif sciences %}
+					{% for science in sciences %}
+					<h4>Description</h4>
+					<p>{{ science.Description }}</p>
+					{% endfor %}
+					
+					{% elif business %}
+					{% for bus in business %}
+					<h4>Description</h4>
+					<p>{{ bus.Description }}</p>
+					{% endfor %}
+
+					{% elif christianbks %}
+					{% for christianb in christianbks %}
+					<h4>Description</h4>
+					<p>{{ christianb.Description }}</p>
+					{% endfor %}
+
+					{% elif motivational %}
+					{% for motivate in motivational %}
+					<h4>Description</h4>
+					<p>{{ motivate.Description }}</p>
+					{% endfor %}
+
+					{% elif nigerian %}
+					{% for niger in nigerian %}
+					<h4>Description</h4>
+					<p>{{ niger.Description }}</p>
+					{% endfor %}
+
+					{% elif teenbks %}
+					{% for teen in teenbks %}
+					<h4>Description</h4>
+					<p>{{ teen.Description }}</p>
+					{% endfor %}
+
+
+					{% endif %}
+				</div>
+				
+			</div>
+
+		</div>
+	</div>
+
+{% endblock %}

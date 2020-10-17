@@ -1,0 +1,35 @@
+{% extends "acubook/base.html" %}
+{% block body_block %}
+{% load static %}
+
+    <!-- First Book section Arts and Literature -->
+    <div class="container padding ">
+      <div class="row padding my-6">
+        <div class="col-12 text-center ">
+          <h2 class="cardheader">Arts and Literature</h2>   <!--Font Awesome has to be used in the headers-->
+        </div>
+        </div>
+      {% if artsbook %}
+        <div class="row padding my-6">
+      {% for arts in artsbook %}
+        <div class="col-md-6 col-lg-3 col-xs-6 col-sm-6 post">
+          <div class="card"> 
+            <a href="{% url 'acubook:description' %}?title={{ arts.Title }}&category=Arts and Literature"><img src="{{ arts.Book_image.url }}" alt="Images"class="card-img-top"style="height:250px;"></a>
+            <div class="card-body">
+              <h4 class="card-title">{{ arts.Title }}</h4>
+              <p class="card-text">#{{ arts.Price }}</p>
+              <form  action="{% url 'Carts:cart' %}?title={{ arts.Title }}" method="POST">
+                {% csrf_token %}
+                <p>
+                <input type="hidden" name="quantity" value="1"></p>
+                <button class="btn btn-dark carts">Add to Cart</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "acubook/base.html" %}
+{% block body_block %}
+{% load static %}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-12 bg-light">
+			<div class="card mx-auto mt-4 mb-5" style="max-width: 350px">
+			<article class="card-body">
+			<h4 class="card-title mt-3 text-center">Login</h4>
+				<form action="{% url 'acubook:user_login' %}" method="POST">
+					{% csrf_token %}
+					{% if messages %}
+					{% for message in messages %}
+					<div class="alert alert-danger" role="alert">
+						{{ message }}
+					</div>
+					{% endfor %}
+					{% endif %}
+					<p>
+					<label for="username">Username</label>
+					<input type="text" name="username" class="form-control"></p>
+					<p>
+					<label for="password">Password</label>
+					<input type="password" name="password" class="form-control"></p>
+
+
+					<button class="btn btn-primary btn-block reg-btn">LOGIN</button>
+				</form>
+
+			</article>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+{% endblock %}
